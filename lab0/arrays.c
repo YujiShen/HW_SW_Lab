@@ -53,7 +53,10 @@ int main(int argc, char* argv[]) {
   // to 11 instead? How about 100? 1000? Make sure to set
   // the second argument back to 10 when you are done
   // testing.
-  // Answer:
+  
+  // Answer: When set to 11, it can compile and run with no errors.
+  // When set to 100, there will be Segmentation fault 11 error at last line.
+  // When set to 1000, it can only run the first line then report error.
   fillArray(array, 10);
 
   int value;
@@ -117,6 +120,8 @@ int main(int argc, char* argv[]) {
   // use memory, which is often invaluable for C and
   // C++ programming.
   // Answer:
+    // Heap in use will decrease 1 block if free the heap;
+    // And will definitely lost 1 block if not free.
   free(heap_array);
 
   // TODO(4): Now it's your turn to write some code.
@@ -131,5 +136,17 @@ int main(int argc, char* argv[]) {
   // you would expect. (Hint, you'll need to use the
   // -> operator to access fields of a FourInts*
   // variable instead of the . operator).
+  
+  FourInts *heap_array1;
+  heap_array1 = (FourInts *)malloc(sizeof(FourInts));
+  // Do not use &heap_array1 because heap_array1 is a pointer
+  // Using & will get the address of that pointer
+  fillArray((int*)heap_array1, 4);
+  
+  assert(heap_array1->a == 2);
+  assert(heap_array1->b == 5);
+  assert(heap_array1->c == 8);
+  assert(heap_array1->d == 11);
+  free(heap_array1);
   return 0;
 }
